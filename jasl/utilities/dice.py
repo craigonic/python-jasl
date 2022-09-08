@@ -9,7 +9,7 @@ of the rolling of each die individually, as well as the combined result of
 the white and colored dice.
 
 Written By: Craig R. Campbell  -  October 2021
-'"""
+"""
 
 import random
 
