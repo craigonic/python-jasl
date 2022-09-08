@@ -16,6 +16,12 @@
 
 include $(JASL_BASE)/util/jasl.make
 
+# Remove the __pycache__ sub-directory.
+
+.PHONY : clean
+clean:
+	$(RM_RECURSIVE) $(PYCACHE_SUB_DIRECTORY)
+
 # Define variables to represent the Python files in/of/for this package.
 
 PYTHON_FILES   := drw.py drw_check.py drw_settings.py

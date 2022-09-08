@@ -21,6 +21,7 @@ include $(JASL_BASE)/util/jasl.make
 
 .PHONY : clean
 clean:
+	$(MAKE) -C DiceRollWizard  $@
 	$(MAKE) -C $(PROGRAM_NAME) $@
 
 # Create an HTML version of this file using the source-highlight program, which
