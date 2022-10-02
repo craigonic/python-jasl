@@ -19,7 +19,7 @@ include $(JASL_BASE)/util/jasl.make
 
 # Define variables to represent the Python files in/of/for this package.
 
-PYTHON_FILES   := actions.py phases.py
+PYTHON_FILES   := actions.py phases.py rate_of_fire.py
 PYTHON_CLASSES := ${PYTHON_FILES:.py=}
 
 # Remove the __pycache__ sub-directory.
