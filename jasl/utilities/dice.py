@@ -49,7 +49,8 @@ class Dice:
         combined_result_label = 'combined: ' + str(self.__combined_result)
         subsequent_die_label  = 'subsequent: ' + str(self.__subsequent_die_value)
 
-        return '\t'.join([white_die_label,colored_die_label,combined_result_label,subsequent_die_label])
+        return '\t'.join([white_die_label,colored_die_label, \
+                          combined_result_label,subsequent_die_label])
 
     def white_die_value(self):
         """Returns the result of rolling the white die."""

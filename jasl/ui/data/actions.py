@@ -37,7 +37,7 @@ if __name__ == "__main__":
     print(mc)
     print(mc.name)
     print(mc.value)
-    print(mc.__str__())
-    print(mc.__repr__())
+    print(str(mc))
+    print(repr(mc))
 
 # @endcond

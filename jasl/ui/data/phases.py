@@ -46,7 +46,7 @@ if __name__ == "__main__":
     print(movement)
     print(movement.name)
     print(movement.value)
-    print(movement.__str__())
-    print(movement.__repr__())
+    print(str(movement))
+    print(repr(movement))
 
 # @endcond
