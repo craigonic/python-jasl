@@ -8,15 +8,18 @@ on the inputs. It may not cover every possible scenario.
 Written By: Craig R. Campbell  -  December 2021
 """
 
-from jasl.ui.data.actions import Actions
-from jasl.ui.data.phases  import Phases
-from jasl.utilities.dice  import Dice
+from jasl.ui.data.actions      import Actions
+from jasl.ui.data.phases       import Phases
+from jasl.ui.data.rate_of_fire import RateOfFire
+from jasl.utilities.dice       import Dice
 
 class DiceRollCheck:
     """
     A class used to determine possible effects with the specified dice roll
     when considered with the other indicated factors (turn phase, action
-    type, etc.).
+    type, etc.). In applicable circumstances it will also determine if the dice
+    roll and the rate of fire setting indicate that eligible units may fire
+    again.
     """
 
     # Twelve
@@ -37,7 +40,7 @@ class DiceRollCheck:
     # Doubles
     __ift_attack_cowers = 'IFT attack Cowers (A7.9)'
 
-    def __init__(self,dice,phase,action):
+    def __init__(self,dice,phase,action,rate_of_fire = RateOfFire.NONE):
         """
         Parameters
         ----------
@@ -47,11 +50,14 @@ class DiceRollCheck:
             The phase of the current turn (e.g., Rally, Prep Fire, etc.)
         action: Actions
             The operation associated with the dice roll (e.g., Morale Check)
+        rate_of_fire: RateOfFire
+            The rate of fire setting (e.g., None, One, Two, etc.)
         """
 
         self.__dice = dice
         self.__phase = phase
         self.__action = action
+        self.__rof = rate_of_fire
 
 #       print(self.dr_results())
 #       print(self.parameters())
@@ -69,6 +75,11 @@ class DiceRollCheck:
 
         if dice.white_die_value() == dice.colored_die_value():
             self.__doubles()
+
+        if rate_of_fire != RateOfFire.NONE and \
+           dice.colored_die_value() <= rate_of_fire.value:
+            rof_message = f'Eligible units with ROF >= {rate_of_fire.value} may fire again (A.9)'
+            self.__effects.append(rof_message)
 
     def __twelve(self):
 #       print("Calling __twelve()")
@@ -125,8 +136,9 @@ class DiceRollCheck:
         label  = 'Parameters - '
         phase  = 'phase: ' + str(self.__phase)
         action = 'action: ' + str(self.__action)
+        rof    = 'rate of fire: ' + str(self.__rof)
 
-        return '\t'.join([label,phase,action])
+        return '\t'.join([label,phase,action,rof])
 
     def effects(self):
         """Returns a list of strings describing possible effects associated
@@ -147,7 +159,7 @@ class DiceRollCheck:
 
 if __name__ == "__main__":
     print(DiceRollCheck(Dice(),Phases.RALLY,Actions.RALLY))
-    print(DiceRollCheck(Dice(),Phases.PREP_FIRE,Actions.IFT))
+    print(DiceRollCheck(Dice(),Phases.PREP_FIRE,Actions.IFT,RateOfFire.TWO))
     print(DiceRollCheck(Dice(),Phases.DEFENSIVE_FIRE,Actions.MORALE_CHECK))
     print(DiceRollCheck(Dice(),Phases.CLOSE_COMBAT,Actions.CCT))
 
