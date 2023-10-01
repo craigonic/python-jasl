@@ -122,10 +122,10 @@ class DiceRollSettings:
         """Returns the current rate of fire setting. If it is not applicable
         to the current phase and action the return value is RateOfFire.NONE."""
 
-        if Actions.IFT != self.__action:
-            return RateOfFire.NONE
+        if self.rate_of_fire_is_applicable():
+            return self.__rate_of_fire
 
-        return self.__rate_of_fire
+        return RateOfFire.NONE
 
     def set_rate_of_fire(self,rate_of_fire):
         """
@@ -137,6 +137,12 @@ class DiceRollSettings:
 
         self.__rate_of_fire = rate_of_fire
 
+    def rate_of_fire_is_applicable(self):
+        """ Indicates if the rate of fire value applies for the current action.
+        """
+
+        return Actions.IFT == self.__action
+
     def __str__(self):
         """Returns a string describing the state of the current class instance."""
 
@@ -144,6 +150,9 @@ class DiceRollSettings:
         phase  = 'phase: ' + str(self.phase())
         action = 'action: ' + str(self.action())
         rof    = 'rate of fire: ' + str(self.rate_of_fire())
+
+        if not self.rate_of_fire_is_applicable():
+            rof = ''
 
         return '\t'.join([label,phase,action,rof])
 
