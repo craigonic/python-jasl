@@ -38,7 +38,10 @@ class DiceRollCheck:
         'Rally DR (not Self-Rally) yields Heat of Battle (A15.1)'
 
     # Doubles
-    __ift_attack_cowers = 'IFT attack Cowers (A7.9)'
+    __ift_attack_cowers = 'IFT attack (w/o leader direction) Cowers (A7.9)'
+
+    # Colored die
+    __cc_possible_sw_elimination = 'Close Combat possible Gun/SW elimination (A.11.13)'
 
     def __init__(self,dice,phase,action,rate_of_fire = RateOfFire.NONE):
         """
@@ -80,6 +83,10 @@ class DiceRollCheck:
            dice.colored_die_value() <= rate_of_fire.value:
             rof_message = f'Eligible units with ROF >= {rate_of_fire.value} may fire again (A.9)'
             self.__effects.append(rof_message)
+
+        if phase == Phases.CLOSE_COMBAT and action == Actions.CCT and \
+           dice.colored_die_value() == 1:
+            self.__effects.append(self.__cc_possible_sw_elimination)
 
     def __twelve(self):
 #       print("Calling __twelve()")
