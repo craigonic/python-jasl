@@ -10,13 +10,13 @@ around dice rolls. Players are expected to know and apply the rules.
 Written By: Craig R. Campbell  -  November 2022
 """
 
+from drw_check    import DiceRollCheck
+from drw_settings import DiceRollSettings
+
 from jasl.ui.data.actions      import Actions
 from jasl.ui.data.phases       import Phases
 from jasl.ui.data.rate_of_fire import RateOfFire
 from jasl.utilities.dice       import Dice
-
-from drw_check    import DiceRollCheck
-from drw_settings import DiceRollSettings
 
 dice_roll_settings = DiceRollSettings()
 
