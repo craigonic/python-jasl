@@ -45,8 +45,7 @@ class Dice:
         """Returns a string describing the result of rolling the dice."""
 
         white_die_label       = 'white: ' + str(self.__white_die_value)
-        colored_die_label     = 'colored: ' + '\033[92m' + \
-                                 str(self.__colored_die_value) + '\033[0m'
+        colored_die_label     = 'colored: ' + str(self.__colored_die_value)
         combined_result_label = 'combined: ' + str(self.__combined_result)
         subsequent_die_label  = 'subsequent: ' + str(self.__subsequent_die_value)
 
